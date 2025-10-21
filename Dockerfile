@@ -1,13 +1,15 @@
-# Используем nginx:alpine как базовый образ
+# Используем базовый образ Nginx
 FROM nginx:latest
 
-
-# Удаляем конфигурацию по умолчанию
+# Удаляем стандартный конфиг
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Копируем наш конфигурационный файл в нужную директорию
+# Копируем свои конфиги
 COPY nginx.conf /etc/nginx/conf.d/nginx.conf
 COPY nginx2.conf /etc/nginx/nginx.conf
 
-# Открываем порт 80
+# Открываем порт, который ожидает Back4App
 EXPOSE 8080
+
+# Запускаем Nginx в режиме "не-демона"
+CMD ["nginx", "-g", "daemon off;"]
