@@ -10,5 +10,5 @@ COPY nginx2.conf /etc/nginx/nginx.conf
 # Открываем порт, который проверяет Back4App
 EXPOSE 8080
 
-# Запускаем nginx в foreground
-CMD ["nginx", "-g", "daemon off;"]
+# При старте контейнера покажем URL, потом запустим nginx
+CMD echo "🌐 Public URL: ${B4A_APP_URL:-${APP_URL:-unknown}}" && nginx -g 'daemon off;'
